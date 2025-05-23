@@ -34,7 +34,7 @@ jobs:
         if: matrix.language == 'python'
         run: |
           cd python
-          pytest
+          PYTHONPATH=. pytest
 
       # C# setup and test
       - name: Set up .NET
@@ -46,4 +46,5 @@ jobs:
       - name: Run .NET tests
         if: matrix.language == 'csharp'
         run: |
+          cd csharp
           dotnet test
