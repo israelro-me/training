@@ -21,6 +21,6 @@ public class TwoNumbersShouldSumToTarget
     public void ReturnsIndicesOfTwoNumbersThatAddToTarget(int[] input, int target, int[] expected)
     {
         var result = TwoSumSolver.TwoSum(input, target);
-        result.ShouldBe(expected);
+        result.ShouldBe(expected, ignoreOrder: true);
     }
 }

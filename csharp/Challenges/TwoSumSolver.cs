@@ -9,8 +9,15 @@ public static class TwoSumSolver
 {
     public static int[] TwoSum(int[] nums, int target)
     {
-        // This is just a stub implementation, the goal is to test all plumbing works: tests and GitHub pipelines.
-        // I will do the actual implementation under time tracking later.
-        return [1, 2];
+        var seen = new Dictionary<int, int>();
+        for (var i = 0; i < nums.Length; i++)
+        {
+            if (seen.TryGetValue(target - nums[i], out var seenIndex))
+                return [seenIndex, i];
+
+            seen[nums[i]] = i;
+        }
+
+        throw new ArgumentException("Input should have had exactly one solution.");
     }
 }
