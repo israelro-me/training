@@ -1,8 +1,13 @@
 namespace Challenges;
 
-public static class NumIslandsImplementations
+public interface INumIslandsImplementation
 {
-    public static int NumIslands(char[][] grid)
+    int NumIslands(char[][] grid);
+}
+
+public class NumIslandsRecursiveDfsImplementation : INumIslandsImplementation
+{
+    public int NumIslands(char[][] grid)
     {
         var numberOfIslands = 0;
         for (var i = 0; i < grid.Length; i++)

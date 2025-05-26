@@ -4,9 +4,11 @@ using Xunit;
 
 namespace Tests;
 
-public class NumIslandsShouldCountCorrectly
+public abstract class NumIslandsTest<TImplementation> where TImplementation : INumIslandsImplementation, new()
 {
-    public static TheoryData<char[][], int> GetIslandCountCases() => new()
+    protected readonly INumIslandsImplementation Implementation = new TImplementation();
+
+    public static TheoryData<char[][], int> Cases => new()
     {
         {
             [
@@ -14,7 +16,8 @@ public class NumIslandsShouldCountCorrectly
                 ['1', '1', '0', '1', '0'],
                 ['1', '1', '0', '0', '0'],
                 ['0', '0', '0', '0', '0']
-            ], 1
+            ],
+            1
         },
         {
             [
@@ -22,19 +25,22 @@ public class NumIslandsShouldCountCorrectly
                 ['1', '1', '0', '0', '0'],
                 ['0', '0', '1', '0', '0'],
                 ['0', '0', '0', '1', '1']
-            ], 3
+            ],
+            3
         },
         {
             [
                 ['0', '0', '0'],
                 ['0', '0', '0']
-            ], 0
+            ],
+            0
         },
         {
             [
                 ['1', '1'],
                 ['1', '1']
-            ], 1
+            ],
+            1
         },
         {
             [], 0
@@ -51,16 +57,28 @@ public class NumIslandsShouldCountCorrectly
                 ['0', '1', '0', '1', '0', '1', '0', '1', '0'],
                 ['0', '1', '0', '1', '1', '1', '0', '1', '0'],
                 ['0', '1', '0', '0', '0', '0', '0', '1', '0'],
-                ['0', '1', '1', '1', '1', '1', '1', '1', '0'],
-            ], 2
+                ['0', '1', '1', '1', '1', '1', '1', '1', '0']
+            ],
+            2
         }
     };
 
+
     [Theory]
-    [MemberData(nameof(GetIslandCountCases))]
+    [MemberData(nameof(Cases))]
     public void ReturnsCorrectIslandCount(char[][] grid, int expected)
     {
-        var result = NumIslandsImplementations.NumIslands(grid);
-        result.ShouldBe(expected);
+        Array.ConvertAll(grid, inner => (char[])inner.Clone());
+        Implementation.NumIslands(grid).ShouldBe(expected);
+    }
+}
+
+public class RecursiveDfsShouldCountNumIslandsCorrectly : NumIslandsTest<NumIslandsRecursiveDfsImplementation>
+{
+    [Fact]
+    public void DoesNotStackOverflowOnDeepOneWideMap()
+    {
+        var grid = Array.ConvertAll(new char[100][], _ => Enumerable.Repeat('1', 100).ToArray());
+        Should.NotThrow(() => Implementation.NumIslands(grid));
     }
 }
