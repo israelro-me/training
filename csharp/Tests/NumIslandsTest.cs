@@ -68,8 +68,8 @@ public abstract class NumIslandsTest<TImplementation> where TImplementation : IN
     [MemberData(nameof(Cases))]
     public void ReturnsCorrectIslandCount(char[][] grid, int expected)
     {
-        Array.ConvertAll(grid, inner => (char[])inner.Clone());
-        Implementation.NumIslands(grid).ShouldBe(expected);
+        var gridCopy = Array.ConvertAll(grid, inner => (char[])inner.Clone());
+        Implementation.NumIslands(gridCopy).ShouldBe(expected);
     }
 }
 
