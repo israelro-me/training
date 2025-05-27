@@ -10,11 +10,11 @@ public class NumIslandsRecursiveDfsImplementation : INumIslandsImplementation
     public int NumIslands(char[][] grid)
     {
         var numberOfIslands = 0;
-        for (var i = 0; i < grid.Length; i++)
-        for (var j = 0; j < grid[i].Length; j++)
+        for (var r = 0; r < grid.Length; r++)
+        for (var c = 0; c < grid[r].Length; c++)
         {
-            if (grid[i][j] != '1') continue;
-            if (Dfs(i, j))
+            if (grid[r][c] != '1') continue;
+            if (Dfs(r, c))
                 numberOfIslands++;
         }
 
@@ -46,22 +46,22 @@ public class NumIslandsIterativeDfsImplementation : INumIslandsImplementation
         var numberOfIslands = 0;
 
         var stack = new Stack<(int i, int j)>();
-        for (var i = 0; i < grid.Length; i++)
-        for (var j = 0; j < grid[i].Length; j++)
+        for (var r = 0; r < grid.Length; r++)
+        for (var c = 0; c < grid[r].Length; c++)
         {
-            if (grid[i][j] == '1')
+            if (grid[r][c] == '1')
             {
                 numberOfIslands++;
-                stack.Push((i, j));
+                stack.Push((r, c));
             }
 
             while (stack.Count > 0)
             {
-                var (poppedI, poppedJ) = stack.Pop();
-                TryPush(poppedI, poppedJ + 1);
-                TryPush(poppedI + 1, poppedJ);
-                TryPush(poppedI, poppedJ - 1);
-                TryPush(poppedI - 1, poppedJ);
+                var (i, j) = stack.Pop();
+                TryPush(i, j + 1);
+                TryPush(i + 1, j);
+                TryPush(i, j - 1);
+                TryPush(i - 1, j);
             }
         }
 
@@ -83,22 +83,22 @@ public class NumIslandsIterativeBfsImplementation : INumIslandsImplementation
     {
         var numberOfIslands = 0;
         var queue = new Queue<(int i, int j)>();
-        for (var i = 0; i < grid.Length; i++)
-        for (var j = 0; j < grid[i].Length; j++)
+        for (var r = 0; r < grid.Length; r++)
+        for (var c = 0; c < grid[r].Length; c++)
         {
-            if (grid[i][j] == '1')
+            if (grid[r][c] == '1')
             {
                 numberOfIslands++;
-                queue.Enqueue((i, j));
+                queue.Enqueue((r, c));
             }
 
             while (queue.Count > 0)
             {
-                var (dequeuedI, dequeuedJ) = queue.Dequeue();
-                TryEnqueue(dequeuedI, dequeuedJ + 1);
-                TryEnqueue(dequeuedI + 1, dequeuedJ);
-                TryEnqueue(dequeuedI, dequeuedJ - 1);
-                TryEnqueue(dequeuedI - 1, dequeuedJ);
+                var (i, j) = queue.Dequeue();
+                TryEnqueue(i, j + 1);
+                TryEnqueue(i + 1, j);
+                TryEnqueue(i, j - 1);
+                TryEnqueue(i - 1, j);
             }
         }
 

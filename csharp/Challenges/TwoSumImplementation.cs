@@ -5,7 +5,7 @@
 ///     target.
 ///     Source: https://leetcode.com/problems/two-sum
 /// </summary>
-public static class TwoSumSolver
+public static class TwoSumImplementation
 {
     public static int[] TwoSum(int[] nums, int target)
     {

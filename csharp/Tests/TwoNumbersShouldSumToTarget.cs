@@ -20,7 +20,7 @@ public class TwoNumbersShouldSumToTarget
     [MemberData(nameof(GetTwoSumCases))]
     public void ReturnsIndicesOfTwoNumbersThatAddToTarget(int[] input, int target, int[] expected)
     {
-        var result = TwoSumSolver.TwoSum(input, target);
+        var result = TwoSumImplementation.TwoSum(input, target);
         result.ShouldBe(expected, true);
     }
 }

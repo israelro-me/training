@@ -82,3 +82,11 @@ public class RecursiveDfsShouldCountNumIslandsCorrectly : NumIslandsTest<NumIsla
         Should.NotThrow(() => Implementation.NumIslands(grid));
     }
 }
+
+public class IterativeDfsShouldCountNumIslandsCorrectly : NumIslandsTest<NumIslandsIterativeDfsImplementation>
+{
+}
+
+public class IterativeBfsShouldCountNumIslandsCorrectly : NumIslandsTest<NumIslandsIterativeBfsImplementation>
+{
+}
